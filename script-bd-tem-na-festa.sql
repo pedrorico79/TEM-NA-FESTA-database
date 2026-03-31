@@ -96,7 +96,7 @@ CREATE TABLE campanha (
 );
 
 CREATE TABLE cardapio (
-    idCardapio INT AUTO_INCREMENT PRIMARY KEY,
+    id INT AUTO_INCREMENT PRIMARY KEY,
     nome VARCHAR(100),
     observacoes TEXT,
     is_ativo BOOLEAN,
