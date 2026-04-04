@@ -96,7 +96,7 @@ CREATE TABLE campanha (
 );
 
 CREATE TABLE cardapio (
-    idCardapio INT AUTO_INCREMENT PRIMARY KEY,
+    id INT AUTO_INCREMENT PRIMARY KEY,
     nome VARCHAR(100),
     observacoes TEXT,
     is_ativo BOOLEAN,
@@ -109,6 +109,20 @@ CREATE TABLE cardapio_produto (
     cardapio_id INT,
     produto_id INT,
     ordem_exibicao INT,
-    FOREIGN KEY (cardapio_id) REFERENCES cardapio(idCardapio),
+    qtd_produto_total INT,
+    qtd_produto_disponivel INT,
+    FOREIGN KEY (cardapio_id) REFERENCES cardapio(id),
     FOREIGN KEY (produto_id) REFERENCES produto(id)
 );
+
+CREATE USER user_festa IDENTIFIED BY "Sptech#2024";
+GRANT ALL privileges ON tem_na_festa.* TO user_festa;
+FLUSH PRIVILEGES;
+
+
+
+
+
+
+
+
