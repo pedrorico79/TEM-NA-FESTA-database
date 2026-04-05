@@ -1,5 +1,6 @@
-Create database if not exists tem_na_festa;
-Use tem_na_festa;
+-- DROP DATABASE IF EXISTS tem_na_festa;
+-- CREATE DATABASE IF NOT EXISTS tem_na_festa;
+USE tem_na_festa;
 
 CREATE TABLE endereco (
     id INT AUTO_INCREMENT PRIMARY KEY,
@@ -69,6 +70,18 @@ CREATE TABLE pagamento (
     FOREIGN KEY (usuario_id) REFERENCES usuario(id)
 );
 
+CREATE TABLE historico_status_pedido (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    data_alteracao DATETIME,
+    observacao TEXT,
+    status_producao_id INT,
+    pedido_id INT,
+    usuario_id INT,
+    FOREIGN KEY (status_producao_id) REFERENCES status_producao(id),
+    FOREIGN KEY (pedido_id) REFERENCES pedido(id),
+    FOREIGN KEY (usuario_id) REFERENCES usuario(id)
+);
+
 CREATE TABLE produto (
     id INT AUTO_INCREMENT PRIMARY KEY,
     nome VARCHAR(100),
@@ -115,9 +128,9 @@ CREATE TABLE cardapio_produto (
     FOREIGN KEY (produto_id) REFERENCES produto(id)
 );
 
-CREATE USER user_festa IDENTIFIED BY "Sptech#2024";
-GRANT ALL privileges ON tem_na_festa.* TO user_festa;
-FLUSH PRIVILEGES;
+-- CREATE USER user_festa IDENTIFIED BY "Sptech#2024";
+-- GRANT ALL privileges ON tem_na_festa.* TO user_festa;
+-- FLUSH PRIVILEGES;
 
 
 
