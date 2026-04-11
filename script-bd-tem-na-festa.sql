@@ -22,23 +22,18 @@ CREATE TABLE cliente (
     data_cadastro DATE,
     anotacoes TEXT,
     endereco_id INT,
+    is_ativo BOOLEAN,
     FOREIGN KEY (endereco_id) REFERENCES endereco(id)
 );
-
-CREATE TABLE perfil(
-	id INT AUTO_INCREMENT PRIMARY KEY,
-    nome VARCHAR(50)
-    );
     
 CREATE TABLE usuario (
 	id INT AUTO_INCREMENT PRIMARY KEY,
     nome VARCHAR(100),
     email VARCHAR(100),
     senha VARCHAR(255),
+    perfil VARCHAR(20),
     is_ativo BOOLEAN,
-    data_criacao DATETIME,
-    perfil_id INT,
-    FOREIGN KEY (perfil_id) REFERENCES perfil(id)
+    data_criacao DATETIME
 );
 CREATE TABLE status_producao (
     id INT AUTO_INCREMENT PRIMARY KEY,
@@ -50,12 +45,12 @@ CREATE TABLE pedido (
     data_pedido DATETIME,
     data_entrega DATETIME,
     valor_total DECIMAL(10,2),
+    status_atual VARCHAR(20),
     observacao TEXT,
     cliente_id INT,
-    status_producao_id INT,
     usuario_id INT,
+    is_ativo BOOLEAN,
     FOREIGN KEY (cliente_id) REFERENCES cliente(id),
-    FOREIGN KEY (status_producao_id) REFERENCES status_producao(id),
     FOREIGN KEY (usuario_id) REFERENCES usuario(id)
 );
 
@@ -72,12 +67,11 @@ CREATE TABLE pagamento (
 
 CREATE TABLE historico_status_pedido (
     id INT AUTO_INCREMENT PRIMARY KEY,
+    status_producao VARCHAR(20),
     data_alteracao DATETIME,
     observacao TEXT,
-    status_producao_id INT,
     pedido_id INT,
     usuario_id INT,
-    FOREIGN KEY (status_producao_id) REFERENCES status_producao(id),
     FOREIGN KEY (pedido_id) REFERENCES pedido(id),
     FOREIGN KEY (usuario_id) REFERENCES usuario(id)
 );
