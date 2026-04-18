@@ -29,15 +29,19 @@ CREATE TABLE cliente (
 CREATE TABLE usuario (
 	id INT AUTO_INCREMENT PRIMARY KEY,
     nome VARCHAR(100),
-    email VARCHAR(100),
+    email VARCHAR(100) UNIQUE,
     senha VARCHAR(255),
     perfil VARCHAR(20),
     is_ativo BOOLEAN,
     data_criacao DATETIME
 );
-CREATE TABLE status_producao (
+
+CREATE TABLE campanha (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    nome VARCHAR(50)
+    nome VARCHAR(100),
+    data_inicio DATE,
+    data_fim DATE,
+    is_ativa BOOLEAN
 );
 
 CREATE TABLE pedido (
@@ -49,9 +53,11 @@ CREATE TABLE pedido (
     observacao TEXT,
     cliente_id INT,
     usuario_id INT,
+    campanha_id INT,
     is_ativo BOOLEAN,
     FOREIGN KEY (cliente_id) REFERENCES cliente(id),
-    FOREIGN KEY (usuario_id) REFERENCES usuario(id)
+    FOREIGN KEY (usuario_id) REFERENCES usuario(id),
+    FOREIGN KEY (campanha_id) REFERENCES campanha(id)
 );
 
 CREATE TABLE pagamento (
@@ -94,42 +100,8 @@ CREATE TABLE pedido_produto (
     FOREIGN KEY (produto_id) REFERENCES produto(id)
 );
 
-CREATE TABLE campanha (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    nome VARCHAR(100),
-    data_inicio DATE,
-    data_fim DATE,
-    is_ativa BOOLEAN
-);
-
-CREATE TABLE cardapio (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    nome VARCHAR(100),
-    observacoes TEXT,
-    is_ativo BOOLEAN,
-    campanha_id INT,
-    FOREIGN KEY (campanha_id) REFERENCES campanha(id)
-);
-
-CREATE TABLE cardapio_produto (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    cardapio_id INT,
-    produto_id INT,
-    ordem_exibicao INT,
-    qtd_produto_total INT,
-    qtd_produto_disponivel INT,
-    FOREIGN KEY (cardapio_id) REFERENCES cardapio(id),
-    FOREIGN KEY (produto_id) REFERENCES produto(id)
-);
 
 -- CREATE USER user_festa IDENTIFIED BY "Sptech#2024";
 -- GRANT ALL privileges ON tem_na_festa.* TO user_festa;
 -- FLUSH PRIVILEGES;
-
-
-
-
-
-
-
 
