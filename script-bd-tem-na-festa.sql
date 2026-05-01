@@ -100,6 +100,16 @@ CREATE TABLE pedido_produto (
     FOREIGN KEY (produto_id) REFERENCES produto(id)
 );
 
+CREATE TABLE lembrete (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    descricao TEXT NOT NULL,
+    data_criacao DATE NOT NULL,
+    data_limite DATE NOT NULL,
+    prioridade VARCHAR(5) NOT NULL,
+    usuario_id INT NOT NULL,
+    FOREIGN KEY (usuario_id) REFERENCES usuario(id)
+);
+
 
 -- CREATE USER user_festa IDENTIFIED BY "Sptech#2024";
 -- GRANT ALL privileges ON tem_na_festa.* TO user_festa;

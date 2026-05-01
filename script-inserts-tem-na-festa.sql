@@ -82,3 +82,7 @@ VALUES ('Cardápio Festa Básica', 'Itens mais pedidos', TRUE, 1);
 -- CARDAPIO_PRODUTO
 INSERT INTO cardapio_produto (cardapio_id, produto_id, ordem_exibicao, qtd_produto_total, qtd_produto_disponivel)
 VALUES (1, 1, 1, 10 , 9);
+
+-- LEMBRETE
+INSERT INTO tarefas (descricao, data_criacao, data_limite, prioridade, usuario_id)
+VALUES ('Comprar farinha', '2026-05-01', '2026-05-05', 'Alta', 1);
