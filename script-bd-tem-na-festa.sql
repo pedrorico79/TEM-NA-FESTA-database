@@ -4,82 +4,112 @@ USE tem_na_festa;
 
 CREATE TABLE endereco (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    cep VARCHAR(8),
-    logradouro VARCHAR(150),
-    numero VARCHAR(10),
+    cep VARCHAR(8) NOT NULL,
+    logradouro VARCHAR(150) NOT NULL,
+    numero VARCHAR(10) NOT NULL,
     complemento VARCHAR(100),
-    bairro VARCHAR(100),
-    cidade VARCHAR(100),
-    estado CHAR(2)
+    bairro VARCHAR(100) NOT NULL,
+    cidade VARCHAR(100) NOT NULL,
+    estado CHAR(2) NOT NULL
 );
 
 CREATE TABLE cliente (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    nome VARCHAR(100),
+    nome VARCHAR(100) NOT NULL,
     telefone VARCHAR(20),
     whatsapp VARCHAR(20),
     instagram VARCHAR(50),
-    data_cadastro DATE,
+    data_cadastro DATE NOT NULL,
     anotacoes TEXT,
     endereco_id INT,
-    is_ativo BOOLEAN,
+    is_ativo BOOLEAN NOT NULL,
     FOREIGN KEY (endereco_id) REFERENCES endereco(id)
 );
-    
-CREATE TABLE usuario (
-	id INT AUTO_INCREMENT PRIMARY KEY,
-    nome VARCHAR(100),
-    email VARCHAR(100) UNIQUE,
-    senha VARCHAR(255),
-    perfil VARCHAR(20),
-    is_ativo BOOLEAN,
-    data_criacao DATETIME
+
+CREATE TABLE perfil (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nome VARCHAR(50) NOT NULL,
+    descricao TEXT
 );
 
-CREATE TABLE campanha (
+CREATE TABLE usuario (
+	id INT AUTO_INCREMENT PRIMARY KEY,
+    nome VARCHAR(100) NOT NULL,
+    email VARCHAR(100) UNIQUE NOT NULL,
+    senha VARCHAR(255) NOT NULL,
+    is_ativo BOOLEAN NOT NULL,
+    data_criacao DATETIME NOT NULL,
+    perfil_id INT NOT NULL,
+    FOREIGN KEY (perfil_id) REFERENCES perfil(id)
+);
+
+CREATE TABLE lembrete (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    nome VARCHAR(100),
-    data_inicio DATE,
-    data_fim DATE,
-    is_ativa BOOLEAN
+    descricao TEXT NOT NULL,
+    data_criacao DATE NOT NULL,
+    data_limite DATE NOT NULL,
+    -- prioridade VARCHAR(5) NOT NULL,
+    usuario_id INT NOT NULL,
+    FOREIGN KEY (usuario_id) REFERENCES usuario(id)
+);
+
+CREATE TABLE evento (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nome VARCHAR(100) NOT NULL,
+    data_inicio DATE NOT NULL,
+    data_fim DATE NOT NULL,
+    is_ativa BOOLEAN NOT NULL
+);
+
+CREATE TABLE status_producao (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nome VARCHAR(50)
 );
 
 CREATE TABLE pedido (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    data_pedido DATETIME,
-    data_entrega DATETIME,
-    valor_total DECIMAL(10,2),
-    status_atual VARCHAR(20),
+    data_pedido DATETIME NOT NULL,
+    data_entrega DATETIME NOT NULL,
+    valor_total DECIMAL(10,2) NOT NULL,
     observacao TEXT,
-    cliente_id INT,
-    usuario_id INT,
-    campanha_id INT,
-    is_ativo BOOLEAN,
+    status_producao_id INT NOT NULL,
+    cliente_id INT NOT NULL,
+    usuario_id INT NOT NULL,
+    evento_id INT NOT NULL,
+    is_ativo BOOLEAN NOT NULL,
     FOREIGN KEY (cliente_id) REFERENCES cliente(id),
     FOREIGN KEY (usuario_id) REFERENCES usuario(id),
-    FOREIGN KEY (campanha_id) REFERENCES campanha(id)
+    FOREIGN KEY (evento_id) REFERENCES evento(id),
+    FOREIGN KEY (status_producao_id) REFERENCES status_producao(id)
+);
+
+CREATE TABLE metodo_pagamento (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nome VARCHAR(50)
 );
 
 CREATE TABLE pagamento (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    valor DECIMAL(10,2),
-    data_pagamento DATETIME,
-    metodo VARCHAR(50),
-    pedido_id INT,
-    usuario_id INT,
+    valor DECIMAL(10,2) NOT NULL,
+    data_pagamento DATETIME NOT NULL,
+    metodo_pagamento_id INT NOT NULL,
+    pedido_id INT NOT NULL,
+    usuario_id INT NOT NULL,
     FOREIGN KEY (pedido_id) REFERENCES pedido(id),
-    FOREIGN KEY (usuario_id) REFERENCES usuario(id)
+    FOREIGN KEY (usuario_id) REFERENCES usuario(id),
+    FOREIGN KEY (metodo_pagamento_id) REFERENCES metodo_pagamento(id)
 );
 
 CREATE TABLE historico_status_pedido (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    status_producao VARCHAR(20),
-    data_alteracao DATETIME,
+    data_alteracao DATETIME NOT NULL,
     observacao TEXT,
-    pedido_id INT,
-    usuario_id INT,
+    status_producao_id INT NOT NULL,
+    pedido_id INT NOT NULL,
+    usuario_id INT NOT NULL,
     FOREIGN KEY (pedido_id) REFERENCES pedido(id),
-    FOREIGN KEY (usuario_id) REFERENCES usuario(id)
+    FOREIGN KEY (usuario_id) REFERENCES usuario(id),
+    FOREIGN KEY (status_producao_id) REFERENCES status_producao(id)
 );
 
 CREATE TABLE produto (
@@ -90,7 +120,7 @@ CREATE TABLE produto (
     is_ativo BOOLEAN
 );
 
-CREATE TABLE pedido_produto (
+CREATE TABLE item_pedido (
     id INT AUTO_INCREMENT PRIMARY KEY,
     pedido_id INT,
     produto_id INT,
