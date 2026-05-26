@@ -43,16 +43,6 @@ CREATE TABLE usuario (
     FOREIGN KEY (perfil_id) REFERENCES perfil(id)
 );
 
-CREATE TABLE lembrete (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    descricao TEXT NOT NULL,
-    data_criacao DATE NOT NULL,
-    data_limite DATE NOT NULL,
-    -- prioridade VARCHAR(5) NOT NULL,
-    usuario_id INT NOT NULL,
-    FOREIGN KEY (usuario_id) REFERENCES usuario(id)
-);
-
 CREATE TABLE evento (
     id INT AUTO_INCREMENT PRIMARY KEY,
     nome VARCHAR(100) NOT NULL,
@@ -135,11 +125,9 @@ CREATE TABLE lembrete (
     descricao TEXT NOT NULL,
     data_criacao DATE NOT NULL,
     data_limite DATE NOT NULL,
-    prioridade VARCHAR(5) NOT NULL,
     usuario_id INT NOT NULL,
     FOREIGN KEY (usuario_id) REFERENCES usuario(id)
 );
-
 
 -- CREATE USER user_festa IDENTIFIED BY "Sptech#2024";
 -- GRANT ALL privileges ON tem_na_festa.* TO user_festa;
