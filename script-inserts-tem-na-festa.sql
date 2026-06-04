@@ -7,10 +7,10 @@ INSERT INTO endereco (cep, logradouro, numero, complemento, bairro, cidade, esta
 ('30140010', 'Rua dos Guajajaras', '300', NULL, 'Centro', 'Belo Horizonte', 'MG');
 
 -- 2. Tabela: cliente (Depende de endereco)
-INSERT INTO cliente (nome, telefone, whatsapp, instagram, data_cadastro, anotacoes, endereco_id, is_ativo) VALUES
-('Mariana Silva', '11999998888', '11999998888', '@mari_silva', '2026-01-15', 'Cliente VIP, prefere doces finos.', 1, TRUE),
-('Carlos Eduardo', '21988887777', '21988887777', '@cadu_festas', '2026-02-20', 'Retira sempre no local.', 2, TRUE),
-('Ana Beatriz', '31977776666', '31977776666', '@igor_lindo', '2026-03-10', 'Restrição a lactose.', 3, TRUE);
+INSERT INTO cliente (nome, telefone, whatsapp, instagram, data_cadastro, anotacoes, endereco_id, is_ativo, is_deletado) VALUES
+('Mariana Silva', '11999998888', '11999998888', '@mari_silva', '2026-01-15', 'Cliente VIP, prefere doces finos.', 1, TRUE, FALSE),
+('Carlos Eduardo', '21988887777', '21988887777', '@cadu_festas', '2026-02-20', 'Retira sempre no local.', 2, TRUE, FALSE),
+('Ana Beatriz', '31977776666', '31977776666', '@igor_lindo', '2026-03-10', 'Restrição a lactose.', 3, TRUE, FALSE);
 
 -- 3. Tabela: perfil
 INSERT INTO perfil (nome, descricao) VALUES
@@ -25,10 +25,10 @@ INSERT INTO usuario (nome, email, senha, is_ativo, data_criacao, perfil_id) VALU
 ('Paulinha Confeiteira', 'paula@temnafesta.com', 'hash_senha_pau_789', TRUE, '2026-01-12 07:00:00', 3);
 
 -- 5. Tabela: evento
-INSERT INTO evento (nome, data_inicio, data_fim, is_ativa) VALUES
-('Casamento Mariana & Roberto', '2026-06-12', '2026-06-13', TRUE),
-('Aniversário Infantil do Dudu', '2026-07-05', '2026-07-05', TRUE),
-('Corporativo TechX', '2026-08-20', '2026-08-21', TRUE);
+INSERT INTO evento (nome, data_inicio, data_fim, is_ativa, is_deletado) VALUES
+('Casamento Mariana & Roberto', '2026-06-12', '2026-06-13', TRUE, FALSE),
+('Aniversário Infantil do Dudu', '2026-07-05', '2026-07-05', TRUE, FALSE),
+('Corporativo TechX', '2026-08-20', '2026-08-21', TRUE, FALSE);
 
 -- 6. Tabela: status_producao
 INSERT INTO status_producao (nome) VALUES
@@ -46,11 +46,11 @@ INSERT INTO metodo_pagamento (nome) VALUES
 ('Dinheiro');
 
 -- 8. Tabela: produto
-INSERT INTO produto (nome, descricao, preco_venda, is_ativo) VALUES
-('Cento de Brigadeiro Gourmet', 'Brigadeiro feito com chocolate belga.', 150.00, TRUE),
-('Bolo de Casamento 3 Andares', 'Bolo decorado com pasta americana, sabor ninho com morango.', 800.00, TRUE),
-('Combo Salgadinhos Fritos 500un', 'Coxinha, bolinha de queijo e kibe.', 250.00, TRUE),
-('Cupcake Decorado', 'Cupcake com cobertura de chantininho personalizado.', 8.50, TRUE);
+INSERT INTO produto (nome, descricao, preco_venda, is_ativo, is_deletado) VALUES
+('Cento de Brigadeiro Gourmet', 'Brigadeiro feito com chocolate belga.', 150.00, TRUE, FALSE),
+('Bolo de Casamento 3 Andares', 'Bolo decorado com pasta americana, sabor ninho com morango.', 800.00, TRUE, FALSE),
+('Combo Salgadinhos Fritos 500un', 'Coxinha, bolinha de queijo e kibe.', 250.00, TRUE, FALSE),
+('Cupcake Decorado', 'Cupcake com cobertura de chantininho personalizado.', 8.50, TRUE, FALSE);
 
 -- 9. Tabela: pedido (Depende de status_producao, cliente, usuario, evento)
 INSERT INTO pedido (data_pedido, data_entrega, valor_total, observacao, status_producao_id, cliente_id, usuario_id, evento_id, is_ativo) VALUES

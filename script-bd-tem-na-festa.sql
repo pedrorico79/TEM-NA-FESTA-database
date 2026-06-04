@@ -23,6 +23,7 @@ CREATE TABLE cliente (
     anotacoes TEXT,
     endereco_id INT,
     is_ativo BOOLEAN NOT NULL,
+    is_deletado BOOLEAN NOT NULL DEFAULT FALSE,
     FOREIGN KEY (endereco_id) REFERENCES endereco(id)
 );
 
@@ -48,7 +49,8 @@ CREATE TABLE evento (
     nome VARCHAR(100) NOT NULL,
     data_inicio DATE NOT NULL,
     data_fim DATE NOT NULL,
-    is_ativa BOOLEAN NOT NULL
+    is_ativo BOOLEAN NOT NULL,
+    is_deletado BOOLEAN NOT NULL DEFAULT FALSE
 );
 
 CREATE TABLE status_producao (
@@ -107,7 +109,8 @@ CREATE TABLE produto (
     nome VARCHAR(100),
     descricao TEXT,
     preco_venda DECIMAL(10,2),
-    is_ativo BOOLEAN
+    is_ativo BOOLEAN,
+    is_deletado BOOLEAN NOT NULL DEFAULT FALSE
 );
 
 CREATE TABLE item_pedido (
