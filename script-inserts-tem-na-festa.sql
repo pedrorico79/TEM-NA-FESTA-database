@@ -25,7 +25,7 @@ INSERT INTO usuario (nome, email, senha, is_ativo, data_criacao, perfil_id) VALU
 ('Paulinha Confeiteira', 'paula@temnafesta.com', 'hash_senha_pau_789', TRUE, '2026-01-12 07:00:00', 3);
 
 -- 5. Tabela: evento
-INSERT INTO evento (nome, data_inicio, data_fim, is_ativa, is_deletado) VALUES
+INSERT INTO evento (nome, data_inicio, data_fim, is_ativo, is_deletado) VALUES
 ('Casamento Mariana & Roberto', '2026-06-12', '2026-06-13', TRUE, FALSE),
 ('Aniversário Infantil do Dudu', '2026-07-05', '2026-07-05', TRUE, FALSE),
 ('Corporativo TechX', '2026-08-20', '2026-08-21', TRUE, FALSE);
