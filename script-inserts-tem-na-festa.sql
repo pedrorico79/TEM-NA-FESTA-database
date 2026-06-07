@@ -14,9 +14,9 @@ INSERT INTO cliente (nome, telefone, whatsapp, instagram, data_cadastro, anotaco
 
 -- 3. Tabela: perfil
 INSERT INTO perfil (nome, descricao) VALUES
-('Administrador', 'Acesso total ao sistema e configurações.'),
-('Vendedor', 'Acesso a pedidos, clientes e produtos.'),
-('Produção', 'Acesso apenas ao status e itens dos pedidos.');
+('ADMIN', 'Acesso total ao sistema e configurações.'),
+('FUNCIONARIO', 'Acesso a pedidos, clientes e produtos.'),
+('PRODUCAO', 'Acesso apenas ao status e itens dos pedidos.');
 
 -- 4. Tabela: usuario (Depende de perfil)
 INSERT INTO usuario (nome, email, senha, is_ativo, data_criacao, perfil_id) VALUES
