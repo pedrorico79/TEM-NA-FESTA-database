@@ -39,6 +39,7 @@ CREATE TABLE usuario (
     email VARCHAR(100) UNIQUE NOT NULL,
     senha VARCHAR(255) NOT NULL,
     is_ativo BOOLEAN NOT NULL,
+    is_deletado BOOLEAN NOT NULL DEFAULT FALSE,
     data_criacao DATETIME NOT NULL,
     perfil_id INT NOT NULL,
     FOREIGN KEY (perfil_id) REFERENCES perfil(id)
