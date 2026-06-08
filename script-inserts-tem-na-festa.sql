@@ -28,7 +28,6 @@ INSERT INTO perfil (nome, descricao) VALUES
 -- 4. Tabela: usuario (Depende de perfil)
 -- Senhas originais comentadas (Criptografia BCrypt strength 10)
 -- =========================================================================
-select * from usuario;
 INSERT INTO usuario (nome, email, senha, is_ativo, is_deletado, data_criacao, perfil_id) VALUES
 -- Senha original: 'Admin@123'
 ('Admin Geral', 'admin@temnafesta.com', '$2a$10$f1Whd3Y9k96JBj5IHCdCg.xZg8.4pu6tUVwX1qnN2a/caawdmeuIu', TRUE, FALSE, '2026-01-01 08:00:00', 1),
@@ -41,9 +40,9 @@ INSERT INTO usuario (nome, email, senha, is_ativo, is_deletado, data_criacao, pe
 -- 5. Tabela: evento
 -- =========================================================================
 INSERT INTO evento (nome, data_inicio, data_fim, is_ativo, is_deletado) VALUES
-('Casamento Mariana & Roberto', '2026-06-12', '2026-06-13', TRUE, FALSE),
-('Aniversário Infantil do Dudu', '2026-07-05', '2026-07-05', TRUE, FALSE),
-('Corporativo TechX', '2026-08-20', '2026-08-21', TRUE, FALSE);
+('Casamento', '2024-06-12', '2029-06-13', TRUE, FALSE),
+('Aniversário', '2024-07-05', '2029-07-05', TRUE, FALSE),
+('Halloween', '2024-08-20', '2029-08-21', TRUE, FALSE);
 
 -- =========================================================================
 -- 6. Tabela: status_producao
@@ -70,39 +69,72 @@ INSERT INTO metodo_pagamento (nome) VALUES
 INSERT INTO produto (nome, descricao, preco_venda, is_ativo, is_deletado) VALUES
 ('Cento de Brigadeiro Gourmet', 'Brigadeiro feito com chocolate belga.', 150.00, TRUE, FALSE),
 ('Bolo de Casamento 3 Andares', 'Bolo decorado com pasta americana, sabor ninho com morango.', 800.00, TRUE, FALSE),
-('Combo Salgadinhos Fritos 500un', 'Coxinha, bolinha de queijo e kibe.', 250.00, TRUE, FALSE),
+('Cento de Beijinho Gourmet', 'Beijinho tradicional com coco ralado.', 140.00, TRUE, FALSE),
 ('Cupcake Decorado', 'Cupcake com cobertura de chantininho personalizado.', 8.50, TRUE, FALSE);
 
 -- =========================================================================
 -- 9. Tabela: pedido (Depende de status_producao, cliente, usuario, evento)
 -- =========================================================================
 INSERT INTO pedido (data_pedido, data_entrega, valor_total, observacao, status_producao_id, cliente_id, usuario_id, evento_id, is_ativo) VALUES
-('2026-05-20 14:00:00', '2026-06-12 16:00:00', 1100.00, 'Entregar direto no salão de festas.', 1, 1, 2, 1, TRUE),
-('2026-05-25 10:30:00', '2026-07-05 12:00:00', 420.00, 'Massa do bolo sem chocolate.', 2, 2, 2, 2, TRUE);
+('2026-05-10 09:00:00', '2026-05-18 14:00:00', 1100.00, '', 4, 1, 2, 1, TRUE),
+('2026-05-15 10:30:00', '2026-05-25 15:00:00', 420.00, '', 4, 2, 2, 2, TRUE),
+('2026-05-20 08:00:00', '2026-05-30 16:00:00', 780.00, '', 2, 3, 2, 2, TRUE),
+('2026-05-28 13:00:00', '2026-06-08 17:00:00', 1500.00, '', 4, 1, 2, 3, TRUE),
+('2026-06-01 11:00:00', '2026-06-10 18:00:00', 950.00, '', 2, 2, 2, 3, TRUE),
+('2026-06-03 09:30:00', '2026-06-12 15:00:00', 620.00, '', 1, 3, 2, 1, TRUE),
+('2026-06-05 14:00:00', '2026-06-15 12:00:00', 890.00, '', 1, 1, 2, 2, TRUE),
+('2026-06-07 10:00:00', '2026-06-18 16:00:00', 1350.00, '', 2, 2, 2, 1, TRUE);
 
 -- =========================================================================
 -- 10. Tabela: item_pedido (Depende de pedido, produto)
 -- =========================================================================
 INSERT INTO item_pedido (pedido_id, produto_id, quantidade, preco_unitario) VALUES
-(1, 2, 1, 800.00), -- 1 Bolo de Casamento
-(1, 1, 2, 150.00), -- 2 Centos de Brigadeiro
-(2, 3, 1, 250.00), -- 1 Combo de Salgadinhos
-(2, 4, 20, 8.50);  -- 20 Cupcakes
+(1,2,1,800.00),
+(1,1,2,150.00),
+(2,3,1,250.00),
+(2,4,20,8.50),
+(3,1,4,150.00),
+(4,2,1,800.00),
+(4,3,2,250.00),
+(5,4,50,8.50),
+(6,1,3,150.00),
+(6,4,20,8.50),
+(7,3,2,250.00),
+(7,4,15,8.50),
+(8,2,1,800.00),
+(8,1,3,150.00);
 
 -- =========================================================================
 -- 11. Tabela: pagamento (Depende de metodo_pagamento, pedido, usuario)
 -- =========================================================================
-INSERT INTO pagamento (valor, data_pagamento, metodo_pagamento_id, pedido_id, usuario_id) VALUES
-(550.00, '2026-05-20 14:15:00', 1, 1, 2), -- Sinal de 50% via Pix do pedido 1
-(420.00, '2026-05-25 10:45:00', 2, 2, 2); -- Pagamento integral via Crédito do pedido 2
+INSERT INTO pagamento
+(valor, data_pagamento, metodo_pagamento_id, pedido_id, usuario_id)
+VALUES
+
+(1100.00,'2026-05-10 09:15:00',1,1,2),
+(420.00,'2026-05-15 11:00:00',2,2,2),
+(390.00,'2026-05-20 08:30:00',1,3,2),
+(1500.00,'2026-05-28 13:30:00',1,4,2),
+(475.00,'2026-06-01 11:30:00',3,5,2),
+(620.00,'2026-06-03 10:00:00',1,6,2),
+(890.00,'2026-06-05 14:30:00',2,7,2),
+(1350.00,'2026-06-07 10:15:00',1,8,2);
 
 -- =========================================================================
 -- 12. Tabela: historico_status_pedido (Depende de status_producao, pedido, usuario)
 -- =========================================================================
-INSERT INTO historico_status_pedido (data_alteracao, observacao, status_producao_id, pedido_id, usuario_id) VALUES
-('2026-05-20 14:00:00', 'Pedido criado inicialmente.', 1, 1, 2),
-('2026-05-25 10:30:00', 'Pedido criado inicialmente.', 1, 2, 2),
-('2026-05-26 08:00:00', 'Iniciada a produção dos salgados.', 2, 2, 3);
+INSERT INTO historico_status_pedido
+(data_alteracao, observacao, status_producao_id, pedido_id, usuario_id)
+VALUES
+
+('2026-05-10 09:00:00','Pedido criado.',1,1,2),
+('2026-05-15 10:30:00','Pedido criado.',1,2,2),
+('2026-05-20 08:00:00','Pedido criado.',1,3,2),
+('2026-05-28 13:00:00','Pedido criado.',1,4,2),
+('2026-06-01 11:00:00','Pedido criado.',1,5,2),
+('2026-06-03 09:30:00','Pedido criado.',1,6,2),
+('2026-06-05 14:00:00','Pedido criado.',1,7,2),
+('2026-06-07 10:00:00','Pedido criado.',1,8,2);
 
 -- =========================================================================
 -- 13. Tabela: lembrete (Depende de usuario)
