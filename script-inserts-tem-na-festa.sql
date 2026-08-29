@@ -1,144 +1,72 @@
 USE tem_na_festa;
 
--- =========================================================================
--- 1. Tabela: endereco
--- =========================================================================
-INSERT INTO endereco (cep, logradouro, numero, complemento, bairro, cidade, estado) VALUES
-('01310200', 'Avenida Paulista', '1578', 'Apto 101', 'Bela Vista', 'São Paulo', 'SP'),
-('22041001', 'Avenida Nossa Senhora de Copacabana', '500', 'Bloco B', 'Copacabana', 'Rio de Janeiro', 'RJ'),
-('30140010', 'Rua dos Guajajaras', '300', NULL, 'Centro', 'Belo Horizonte', 'MG');
+-- 1. ENDEREÇOS
+INSERT INTO endereco (cep, logradouro, numero, complemento, bairro, cidade, estado) VALUES 
+('06010000', 'Avenida dos Autonomistas', '1500', 'Apto 42', 'Vila Yara', 'Osasco', 'SP'),
+('06020010', 'Rua Antonio Agú', '300', 'Casa 2', 'Centro', 'Osasco', 'SP');
 
--- =========================================================================
--- 2. Tabela: cliente (Depende de endereco)
--- =========================================================================
-INSERT INTO cliente (nome, telefone, whatsapp, instagram, data_cadastro, anotacoes, endereco_id, is_ativo, is_deletado) VALUES
-('Mariana Silva', '11999998888', '11999998888', '@mari_silva', '2026-01-15', 'Cliente há anos.', 1, TRUE, FALSE),
-('Carlos Eduardo', '21988887777', '21988887777', '@cadu_festas', '2026-02-20', 'Nunca comprou.', 2, TRUE, FALSE),
-('Ana Beatriz', '31977776666', '31977776666', '@igor_lindo', '2026-03-10', 'Moradora do décimo andar.', 3, TRUE, FALSE);
+-- 2. CLIENTES
+INSERT INTO cliente (nome, telefone, whatsapp, instagram, data_cadastro, anotacoes, endereco_id, is_ativo, is_deletado) VALUES 
+('Ana Carolina', '11987654321', '11987654321', '@anacarol', '2026-08-01', 'Cliente prefere bolos sem lactose.', 1, TRUE, FALSE),
+('Carlos Eduardo', '11912345678', '11912345678', '@carlosedu', '2026-08-05', 'Sempre pede doces para o escritório.', 2, TRUE, FALSE);
 
--- =========================================================================
--- 3. Tabela: perfil
--- =========================================================================
-INSERT INTO perfil (nome, descricao) VALUES
-('ADMIN', 'Acesso total ao sistema e configurações.'),
-('FUNCIONARIO', 'Acesso a pedidos, clientes e produtos.'),
-('PRODUCAO', 'Acesso apenas ao status e itens dos pedidos.');
+-- 3. PERFIS
+INSERT INTO perfil (nome, descricao) VALUES 
+('ADMIN', 'Administrador geral do sistema'),
+('ATENDENTE', 'Responsável por receber e orquestrar os pedidos via WhatsApp/Balcão'),
+('CONFEITEIRO', 'Responsável pela linha de produção e painel da cozinha');
 
--- =========================================================================
--- 4. Tabela: usuario (Depende de perfil)
--- Senhas originais comentadas (Criptografia BCrypt strength 10)
--- =========================================================================
-INSERT INTO usuario (nome, email, senha, is_ativo, is_deletado, data_criacao, perfil_id) VALUES
--- Senha original: 'Admin@123'
-('Admin Geral', 'admin@temnafesta.com', '$2a$10$f1Whd3Y9k96JBj5IHCdCg.xZg8.4pu6tUVwX1qnN2a/caawdmeuIu', TRUE, FALSE, '2026-01-01 08:00:00', 1),
--- Senha original: 'Rodrigo@123'
-('Rodrigo Ferreira', 'rodrigo@temnafesta.com', '$2a$10$7kIJ6btoj9mrhP6dlraYzuTAC8Dhqc1tUfoR3PyIMxeZMWkCLRry6', TRUE, FALSE, '2026-01-10 09:30:00', 2),
--- Senha original: 'Senha@123'
-('Paula Dias', 'paula@temnafesta.com', '$2a$10$/XQ4AAWtFyuPkhMyPTGfOeOP/QQPHli/8SEWIS7J6nSy6jKdxBC4m', TRUE, FALSE, '2026-01-12 07:00:00', 3);
+-- 4. USUÁRIOS
+-- As senhas abaixo correspondem ao hash Bcrypt exato da string "senha123" (Cost 10)
+INSERT INTO usuario (nome, email, senha, is_ativo, is_deletado, data_criacao, perfil_id) VALUES 
+('João Silva', 'joao.atendimento@temnafesta.com', '$2a$10$v3A7eei3.g7fZCh4q4O0He0yuDBqtCVbbQmen/cx1C09zrLFnBYwG', TRUE, FALSE, '2026-08-01 08:00:00', 2),
+('Maria Souza', 'maria.cozinha@temnafesta.com', '$2a$10$v3A7eei3.g7fZCh4q4O0He0yuDBqtCVbbQmen/cx1C09zrLFnBYwG', TRUE, FALSE, '2026-08-01 08:00:00', 3);
 
--- =========================================================================
--- 5. Tabela: evento
--- =========================================================================
-INSERT INTO evento (nome, data_inicio, data_fim, is_ativo, is_deletado) VALUES
-('Casamento', '2024-06-12', '2029-06-13', TRUE, FALSE),
-('Aniversário', '2024-07-05', '2029-07-05', TRUE, FALSE),
-('Halloween', '2024-08-20', '2029-08-21', TRUE, FALSE);
+-- 5. EVENTOS
+INSERT INTO evento (nome, data_inicio, data_fim, is_ativo, is_deletado) VALUES 
+('Dia dos Pais 2026', '2026-08-01', '2026-08-09', TRUE, FALSE),
+('Festa da Primavera', '2026-09-01', '2026-09-30', TRUE, FALSE);
 
--- =========================================================================
--- 6. Tabela: status_producao
--- =========================================================================
-INSERT INTO status_producao (nome) VALUES
-('Aguardando Início'),
-('Em Produção'),
-('Pronto para Entrega'),
-('Entregue'),
-('Cancelado');
+-- 7. PRODUTOS / CARDÁPIO
+INSERT INTO produto (nome, descricao, preco_venda, is_ativo, is_deletado) VALUES 
+('Bolo de Vulcão - Cenoura', 'Bolo caseiro de cenoura com cobertura generosa de brigadeiro', 45.00, TRUE, FALSE),
+('Bolo Decorado 2 Andares', 'Bolo de festa com massa de baunilha, recheio de morango e cobertura em chantininho', 250.00, TRUE, FALSE),
+('Cento de Brigadeiro', 'Brigadeiros tradicionais de 15g feitos com chocolate belga', 120.00, TRUE, FALSE);
 
--- =========================================================================
--- 7. Tabela: metodo_pagamento
--- =========================================================================
-INSERT INTO metodo_pagamento (nome) VALUES
-('Pix'),
+-- 8. MÉTODOS DE PAGAMENTO
+INSERT INTO metodo_pagamento (nome) VALUES 
+('PIX'),
 ('Cartão de Crédito'),
-('Cartão de Débito'),
 ('Dinheiro');
 
--- =========================================================================
--- 8. Tabela: produto
--- =========================================================================
-INSERT INTO produto (nome, descricao, preco_venda, is_ativo, is_deletado) VALUES
-('Cento de Brigadeiro Gourmet', 'Brigadeiro feito com chocolate belga.', 150.00, TRUE, FALSE),
-('Bolo de Casamento 3 Andares', 'Bolo decorado com pasta americana, sabor ninho com morango.', 800.00, TRUE, FALSE),
-('Cento de Beijinho Gourmet', 'Beijinho tradicional com coco ralado.', 140.00, TRUE, FALSE),
-('Cupcake Decorado', 'Cupcake com cobertura de chantininho personalizado.', 8.50, TRUE, FALSE);
+-- 9. PEDIDOS
+INSERT INTO pedido (data_pedido, data_entrega, valor_total, taxa_entrega, observacao, status_producao, cliente_id, usuario_id, evento_id, endereco_entrega_id, is_ativo, is_deletado) VALUES 
+('2026-08-06 14:30:00', '2026-08-09 10:00:00', 165.00, 0.00, 'Entregar na portaria', 'AGUARDANDO_SINAL', 1, 1, 1, NULL, TRUE, FALSE),
+('2026-08-08 09:15:00', '2026-08-15 15:00:00', 270.00, 20.00, 'Topo de bolo com nome "Eduardo"', 'EM_PRODUCAO', 2, 1, NULL, 2, TRUE, FALSE); 
 
--- =========================================================================
--- 9. Tabela: pedido (Depende de status_producao, cliente, usuario, evento)
--- =========================================================================
-INSERT INTO pedido (data_pedido, data_entrega, valor_total, observacao, status_producao_id, cliente_id, usuario_id, evento_id, is_ativo) VALUES
-('2026-05-10 09:00:00', '2026-05-18 14:00:00', 1100.00, '', 4, 1, 2, 1, TRUE),
-('2026-05-15 10:30:00', '2026-05-25 15:00:00', 420.00, '', 4, 2, 2, 2, TRUE),
-('2026-05-20 08:00:00', '2026-05-30 16:00:00', 780.00, '', 2, 3, 2, 2, TRUE),
-('2026-05-28 13:00:00', '2026-06-08 17:00:00', 1500.00, '', 4, 1, 2, 3, TRUE),
-('2026-06-01 11:00:00', '2026-06-10 18:00:00', 950.00, '', 2, 2, 2, 3, TRUE),
-('2026-06-03 09:30:00', '2026-06-12 15:00:00', 620.00, '', 1, 3, 2, 1, TRUE),
-('2026-06-05 14:00:00', '2026-06-15 12:00:00', 890.00, '', 1, 1, 2, 2, TRUE),
-('2026-06-07 10:00:00', '2026-06-18 16:00:00', 1350.00, '', 2, 2, 2, 1, TRUE);
+-- 10. ITENS DO PEDIDO
+INSERT INTO item_pedido (pedido_id, produto_id, quantidade, preco_unitario, observacao_item) VALUES 
+(1, 1, 1, 45.00, 'Mandar talheres descartáveis'),
+(1, 3, 1, 120.00, 'Metade brigadeiro, metade beijinho'),
+(2, 2, 1, 250.00, 'Sem glúten');
 
--- =========================================================================
--- 10. Tabela: item_pedido (Depende de pedido, produto)
--- =========================================================================
-INSERT INTO item_pedido (pedido_id, produto_id, quantidade, preco_unitario) VALUES
-(1,2,1,800.00),
-(1,1,2,150.00),
-(2,3,1,250.00),
-(2,4,20,8.50),
-(3,1,4,150.00),
-(4,2,1,800.00),
-(4,3,2,250.00),
-(5,4,50,8.50),
-(6,1,3,150.00),
-(6,4,20,8.50),
-(7,3,2,250.00),
-(7,4,15,8.50),
-(8,2,1,800.00),
-(8,1,3,150.00);
+-- 11. PAGAMENTOS
+INSERT INTO pagamento (valor, data_pagamento, tipo_pagamento, status_pagamento, metodo_pagamento_id, pedido_id, usuario_id) VALUES 
+(82.50, '2026-08-06 14:45:00', 'SINAL', 'CONFIRMADO', 1, 1, 1),
+(82.50, '2026-08-09 10:05:00', 'QUITACAO', 'PENDENTE', 2, 1, 1);
 
--- =========================================================================
--- 11. Tabela: pagamento (Depende de metodo_pagamento, pedido, usuario)
--- =========================================================================
-INSERT INTO pagamento
-(valor, data_pagamento, metodo_pagamento_id, pedido_id, usuario_id)
-VALUES
+-- 12. HISTÓRICO DE STATUS DO PEDIDO
+INSERT INTO historico_status_pedido (data_alteracao, observacao, status_producao, pedido_id, usuario_id) VALUES 
+('2026-08-06 14:30:00', 'Pedido criado como rascunho.', 'RASCUNHO', 1, 1),
+('2026-08-06 14:45:00', 'Sinal confirmado. Pedido na fila de produção.', 'CONFIRMADO', 1, 1),
+('2026-08-08 09:15:00', 'Pedido criado aguardando pagamento de entrada.', 'AGUARDANDO_SINAL', 2, 1);
 
-(1100.00,'2026-05-10 09:15:00',1,1,2),
-(420.00,'2026-05-15 11:00:00',2,2,2),
-(390.00,'2026-05-20 08:30:00',1,3,2),
-(1500.00,'2026-05-28 13:30:00',1,4,2),
-(475.00,'2026-06-01 11:30:00',3,5,2),
-(620.00,'2026-06-03 10:00:00',1,6,2),
-(890.00,'2026-06-05 14:30:00',2,7,2),
-(1350.00,'2026-06-07 10:15:00',1,8,2);
+-- 13. LEMBRETES (Organização interna)
+INSERT INTO lembrete (descricao, data_criacao, data_limite, usuario_id) VALUES 
+('Comprar embalagens para bolo de 2 andares', '2026-08-08', '2026-08-10', 2),
+('Cobrar o sinal do pedido #2 do Carlos', '2026-08-08', '2026-08-09', 1);
 
--- =========================================================================
--- 12. Tabela: historico_status_pedido (Depende de status_producao, pedido, usuario)
--- =========================================================================
-INSERT INTO historico_status_pedido
-(data_alteracao, observacao, status_producao_id, pedido_id, usuario_id)
-VALUES
 
-('2026-05-10 09:00:00','Pedido criado.',1,1,2),
-('2026-05-15 10:30:00','Pedido criado.',1,2,2),
-('2026-05-20 08:00:00','Pedido criado.',1,3,2),
-('2026-05-28 13:00:00','Pedido criado.',1,4,2),
-('2026-06-01 11:00:00','Pedido criado.',1,5,2),
-('2026-06-03 09:30:00','Pedido criado.',1,6,2),
-('2026-06-05 14:00:00','Pedido criado.',1,7,2),
-('2026-06-07 10:00:00','Pedido criado.',1,8,2);
 
--- =========================================================================
--- 13. Tabela: lembrete (Depende de usuario)
--- =========================================================================
-INSERT INTO lembrete (descricao, data_criacao, data_limite, usuario_id) VALUES
-('Comprar morangos frescos para o bolo da Mariana.', '2026-05-27', '2026-06-11', 3),
-('Confirmar horário de entrega com o cerimonial.', '2026-05-27', '2026-06-10', 2);
+
+Select * from pedido;
