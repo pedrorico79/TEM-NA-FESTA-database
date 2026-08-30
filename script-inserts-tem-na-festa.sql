@@ -19,8 +19,8 @@ INSERT INTO perfil (nome, descricao) VALUES
 -- 4. USUÁRIOS
 -- As senhas abaixo correspondem ao hash Bcrypt exato da string "senha123" (Cost 10)
 INSERT INTO usuario (nome, email, senha, is_ativo, is_deletado, data_criacao, perfil_id) VALUES 
-('João Silva', 'joao.atendimento@temnafesta.com', '$2a$10$v3A7eei3.g7fZCh4q4O0He0yuDBqtCVbbQmen/cx1C09zrLFnBYwG', TRUE, FALSE, '2026-08-01 08:00:00', 2),
-('Maria Souza', 'maria.cozinha@temnafesta.com', '$2a$10$v3A7eei3.g7fZCh4q4O0He0yuDBqtCVbbQmen/cx1C09zrLFnBYwG', TRUE, FALSE, '2026-08-01 08:00:00', 3);
+('João Silva', 'joao.atendimento@temnafesta.com', '$2a$10$eVcwkkcVKc.Dir1S6iV.p.tUsGHb/Aq5y.AN2Lvc7.pr4rw0VtS6K', TRUE, FALSE, '2026-08-01 08:00:00', 2),
+('Maria Souza', 'maria.cozinha@temnafesta.com', '$2a$10$eVcwkkcVKc.Dir1S6iV.p.tUsGHb/Aq5y.AN2Lvc7.pr4rw0VtS6K', TRUE, FALSE, '2026-08-01 08:00:00', 3);
 
 -- 5. EVENTOS
 INSERT INTO evento (nome, data_inicio, data_fim, is_ativo, is_deletado) VALUES 
