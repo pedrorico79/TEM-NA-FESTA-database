@@ -1,6 +1,5 @@
--- DROP DATABASE IF EXISTS tem_na_festa;
--- CREATE DATABASE IF NOT EXISTS tem_na_festa;
-USE tem_na_festa;
+-- O banco temnafesta já é criado pelo RDS através do Terraform.
+USE temnafesta;
 
 CREATE TABLE endereco (
     id BIGINT AUTO_INCREMENT PRIMARY KEY,
@@ -135,5 +134,5 @@ CREATE TABLE lembrete (
  
 
 -- CREATE USER user_festa IDENTIFIED BY "Sptech#2024";
--- GRANT ALL privileges ON tem_na_festa.* TO user_festa;
+-- GRANT ALL privileges ON temnafesta.* TO user_festa;
 -- FLUSH PRIVILEGES;

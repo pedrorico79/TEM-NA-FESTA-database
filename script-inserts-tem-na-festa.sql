@@ -1,4 +1,4 @@
-USE tem_na_festa;
+USE temnafesta;
 
 -- 1. ENDEREÇOS
 INSERT INTO endereco (cep, logradouro, numero, complemento, bairro, cidade, estado) VALUES 
