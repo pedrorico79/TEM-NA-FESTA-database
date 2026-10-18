@@ -40,15 +40,15 @@ INSERT INTO metodo_pagamento (nome) VALUES
 ('Dinheiro');
 
 -- 9. PEDIDOS
-INSERT INTO pedido (data_pedido, data_entrega, valor_total, taxa_entrega, observacao, status_producao, cliente_id, usuario_id, evento_id, endereco_entrega_id, is_ativo, is_deletado) VALUES 
-('2026-08-06 14:30:00', '2026-08-09 10:00:00', 165.00, 0.00, 'Entregar na portaria', 'AGUARDANDO_SINAL', 1, 1, 1, NULL, TRUE, FALSE),
-('2026-08-08 09:15:00', '2026-08-15 15:00:00', 270.00, 20.00, 'Topo de bolo com nome "Eduardo"', 'EM_PRODUCAO', 2, 1, NULL, 2, TRUE, FALSE); 
+INSERT INTO pedido (data_pedido, data_entrega, valor_total, desconto_pedido, taxa_entrega, observacao, status_producao, cliente_id, usuario_id, evento_id, endereco_entrega_id, is_ativo, is_deletado) VALUES
+('2026-08-06 14:30:00', '2026-08-09 10:00:00', 165.00, 0.00, 0.00, 'Entregar na portaria', 'AGUARDANDO_SINAL', 1, 1, 1, NULL, TRUE, FALSE),
+('2026-08-08 09:15:00', '2026-08-15 15:00:00', 270.00, 0.00, 20.00, 'Topo de bolo com nome "Eduardo"', 'EM_PRODUCAO', 2, 1, NULL, 2, TRUE, FALSE);
 
 -- 10. ITENS DO PEDIDO
-INSERT INTO item_pedido (pedido_id, produto_id, quantidade, preco_unitario, observacao_item) VALUES 
-(1, 1, 1, 45.00, 'Mandar talheres descartáveis'),
-(1, 3, 1, 120.00, 'Metade brigadeiro, metade beijinho'),
-(2, 2, 1, 250.00, 'Sem glúten');
+INSERT INTO item_pedido (pedido_id, produto_id, quantidade, preco_unitario, acrescimo, observacao_item) VALUES
+(1, 1, 1, 45.00, 0.00, 'Mandar talheres descartáveis'),
+(1, 3, 1, 120.00, 0.00, 'Metade brigadeiro, metade beijinho'),
+(2, 2, 1, 250.00, 0.00, 'Sem glúten');
 
 -- 11. PAGAMENTOS
 INSERT INTO pagamento (valor, data_pagamento, tipo_pagamento, status_pagamento, metodo_pagamento_id, pedido_id, usuario_id) VALUES 
