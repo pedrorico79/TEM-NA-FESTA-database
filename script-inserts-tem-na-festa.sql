@@ -1,4 +1,6 @@
 USE tem_na_festa;
+-- Dados fictícios de exemplo. Rode depois do script de criação do banco, que já
+-- traz os perfis e os métodos de pagamento (dados iniciais do sistema).
 
 -- 1. ENDEREÇOS
 INSERT INTO endereco (cep, logradouro, numero, complemento, bairro, cidade, estado) VALUES 
@@ -10,11 +12,7 @@ INSERT INTO cliente (nome, telefone, whatsapp, instagram, data_cadastro, anotaco
 ('Ana Carolina', '11987654321', '11987654321', '@anacarol', '2026-08-01', 'Cliente prefere bolos sem lactose.', 1, TRUE, FALSE),
 ('Carlos Eduardo', '11912345678', '11912345678', '@carlosedu', '2026-08-05', 'Sempre pede doces para o escritório.', 2, TRUE, FALSE);
 
--- 3. PERFIS
-INSERT INTO perfil (nome, descricao) VALUES 
-('ADMIN', 'Administrador geral do sistema'),
-('ATENDENTE', 'Responsável por receber e orquestrar os pedidos via WhatsApp/Balcão'),
-('CONFEITEIRO', 'Responsável pela linha de produção e painel da cozinha');
+-- 3. PERFIS: já vêm do script de criação do banco (dados iniciais)
 
 -- 4. USUÁRIOS
 -- As senhas abaixo correspondem ao hash Bcrypt exato da string "senha123" (Cost 10)
@@ -33,11 +31,7 @@ INSERT INTO produto (nome, descricao, preco_venda, is_ativo, is_deletado) VALUES
 ('Bolo Decorado 2 Andares', 'Bolo de festa com massa de baunilha, recheio de morango e cobertura em chantininho', 250.00, TRUE, FALSE),
 ('Cento de Brigadeiro', 'Brigadeiros tradicionais de 15g feitos com chocolate belga', 120.00, TRUE, FALSE);
 
--- 8. MÉTODOS DE PAGAMENTO
-INSERT INTO metodo_pagamento (nome) VALUES 
-('PIX'),
-('Cartão de Crédito'),
-('Dinheiro');
+-- 8. MÉTODOS DE PAGAMENTO: já vêm do script de criação do banco (dados iniciais)
 
 -- 9. PEDIDOS
 INSERT INTO pedido (data_pedido, data_entrega, valor_total, desconto_pedido, taxa_entrega, observacao, status_producao, cliente_id, usuario_id, evento_id, endereco_entrega_id, is_ativo, is_deletado) VALUES
